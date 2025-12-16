@@ -1,97 +1,96 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Hacker News Reader - React Native Challenge
 
-# Getting Started
+This project is a mobile application developed as part of a technical challenge. It fetches articles from Hacker News, offering offline capabilities, gesture-based interactions, and background notifications for new stories.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+The application was built using **React Native** and **TypeScript**, focusing on Clean Architecture, performance, and UX best practices.
 
-## Step 1: Start Metro
+## 📱 Features
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+### Core Functionality
+- [cite_start]**Feed of Articles:** Fetches the latest mobile-related stories (Android/iOS) from the Algolia Hacker News API[cite: 9].
+- **Offline First:** Uses `react-native-mmkv` to persist data. [cite_start]The app remains fully functional without an internet connection, displaying the last cached session[cite: 10].
+- [cite_start]**In-App Browser:** Tapping an article opens the content in a seamless WebView integration[cite: 12].
+- **Swipe to Delete:** Users can swipe items to the left to delete them. [cite_start]Deleted articles are blacklisted locally and do not reappear upon refreshing[cite: 13].
+- **Pull to Refresh:** Standard gesture to update the data manually.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+### Enhanced Features (Bonus)
+- [cite_start]**Background Updates:** Implements a background task (via `react-native-background-fetch`) that checks for new articles every 15 minutes, even when the app is closed[cite: 25].
+- [cite_start]**Push Notifications:** Sends a local notification when a new article matching user preferences is found[cite: 26].
+- [cite_start]**User Preferences:** A settings menu allows users to filter notifications (e.g., "Android only", "iOS only") or disable them entirely[cite: 23, 30].
 
-```sh
-# Using npm
-npm start
+---
 
-# OR using Yarn
-yarn start
-```
+## 🛠 Tech Stack & Architecture
 
-## Step 2: Build and run your app
+- [cite_start]**Language:** TypeScript[cite: 32].
+- **State Management:** **Zustand**. Chosen for its minimal boilerplate and easy integration with persistence layers compared to Redux.
+- **Persistence:** **MMKV**. A high-performance storage solution used to cache articles and store deleted item IDs (Blacklist).
+- **Network:** **Axios**. Used for API requests.
+- **UI & Gestures:** **Reanimated 2** & **Gesture Handler**. Ensures 60fps animations for the "Swipe to Delete" feature.
+- **Notifications:** **Notifee** & **Background Fetch**. Handles headless JS tasks and local notification scheduling.
+- **Testing:** **Jest** & **React Native Testing Library**.
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+---
 
-### Android
+## 🚀 Getting Started
 
-```sh
-# Using npm
-npm run android
+### Prerequisites
+- Node.js (>= 18)
+- Yarn or NPM
+- **iOS:** macOS, Xcode, CocoaPods
+- **Android:** Android Studio, JDK 17+
 
-# OR using Yarn
-yarn android
-```
+### Installation
 
-### iOS
+1. **Clone the repository:**
+  `git clone <YOUR_REPO_URL>`
+  `cd HNReader`
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+2. **Install dependencies:**
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+  `npm install`
 
-```sh
-bundle install
-```
+3. **Install iOS Pods (macOS only):**
+  `cd ios && pod install && cd .. `
 
-Then, and every time you update your native dependencies, run:
+## 🏃‍♂️ How to ~~Run~~
+1. **Start Metro Bundler**
+Start the Javascript bundler in a terminal:
 
-```sh
-bundle exec pod install
-```
+  `npm start`
+2. **Launch Application**
+**For iOS:**
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+  `npm run ios`
+**For Android:** Ensure you have an emulator running or a device connected via USB with USB Debugging enabled.
 
-```sh
-# Using npm
-npm run ios
+Bash
 
-# OR using Yarn
-yarn ios
-```
+  `npm run android`
+**Note on Background Fetch:** To test the background notification feature on the iOS Simulator, you can manually trigger the event via the menu: `Debug` > `Simulate Background Fetch`.
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## 🧪 Testing
+Unit tests are included to demonstrate reliability and ensure the UI components behave as expected.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
 
-## Step 3: Modify your app
+To run the test suite:
 
-Now that you have successfully run the app, let's make changes!
+  `npm test`
+To run tests in watch mode during development:
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+  `npm run test:watch`
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## 📂 Project Structure
+The project follows a modular structure to separate concerns:
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+src/
+  ├── api/           # API interaction logic
+  ├── components/    # Reusable UI components (ArticleCard, etc.)
+  ├── screens/       # Main screens (HomeScreen, ArticleWebView)
+  ├── store/         # Zustand store (Global State & Persistence)
+  ├── services/      # Background tasks and Notification logic
+  ├── theme/         # Centralized color palette and spacing
+  ├── types/         # TypeScript interfaces and definitions
+  └── utils/         # Helper functions (Date formatting, etc.)
+## 📝 License
+MIT
